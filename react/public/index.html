@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('button').click(function(){
+                let num = $('h1').text();
+                $('h1').text(++num);
+            });
+        });
+    </script>
+    <style>
+        div {
+            background-color: yellowgreen;
+            width: 150px;
+            text-align: center;
+            padding: 5px;
+            border-radius: 15px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>0</h1>
+        <br><button>+</button>
+    </div>
+</body>
+</html>

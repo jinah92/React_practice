@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <title>React Page</title>
+    <style>
+        #container {
+            padding: 50px;
+            background-color: #EEE;
+        }
+        #container h3 {
+            font-size: 144px;
+            font-family: sans-serif;
+            color: #0080A8;
+        }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+    <script type="text/babel">
+        /* function formatDistance(distance) {
+            return distance + " km";
+        }
+        function getDistance(speed, time) {
+            const result = speed*time;
+            alert(formatDistance(result));
+        } */
+
+        class HelloWorld extends React.Component {  //리액트 컴포넌트를 상속받은 클래스
+            render() {  // render 메소드를 추가 (overriding, 재정의)
+                return (
+                    <p><i>{this.props.greeting}{this.props.name}</i></p>
+                );
+            }
+        }
+
+        const destination = document.querySelector("#container");
+        ReactDOM.render (
+            <div> 
+                <HelloWorld greeting="안녕?" name=" 진아"/>  
+                <HelloWorld greeting="Hello," name=" V"/>  
+                <HelloWorld greeting="Hello," name=" Sugar"/>  
+                <HelloWorld greeting="By," name=" everybody"/>  
+            </div>
+            ,
+            destination   //위치     
+        );
+    </script>
+</body>
+</html>
