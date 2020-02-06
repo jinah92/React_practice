@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <div id="container"></div>
+    <script type="text/babel">  
+        class MyCounter extends React.Component {
+            state={
+                counter: 0
+            };
+            timerTick=()=>{
+                console.log("timerTick 호출됨");
+                this.setState({
+                    counter: this.state.counter + 100
+                });
+            }
+            componentDidMount(){
+                console.log("componentDidMount 호출됨");
+                setInterval(this.timerTick, 1000);
+            }
+            render(){
+                console.log("render 호출됨");
+                return(
+                    <h1>{this.state.counter}</h1>
+                );
+            }
+        }
+        
+        ReactDOM.render(
+            <MyCounter />,
+            document.querySelector('#container')
+        );
+    </script>
+</body>
+</html>

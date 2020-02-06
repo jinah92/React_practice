@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>2nd React</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <div id="container"></div>
+    <script type="text/babel">
+        class LightningCounter extends React.Component {
+            constructor(props){
+                super(props);
+                console.log("constructor 호출완료");
+
+                this.state = {
+                    strikes: 0
+                };
+                /* this.timerTick = this.timerTick.bind(this); */
+            }
+            timerTick =()=>{
+                this.setState({
+                    strikes: this.state.strikes + 100
+                });
+            }
+            componentDidMount(){
+                console.log("componentDidMount 호출완료");
+                setInterval(this.timerTick, 1000);
+            }
+            render(){
+                console.log("render 호출완료");
+                return (
+                    <h1>{this.state.strikes}</h1>
+                );
+            }
+        }
+
+        class LightningCounterDisplay extends React.Component {
+            
+            render(){
+                const divStyle = {
+                    width: 250,
+                    textAlign: "center",
+                    backgroundColor: "black",
+                    padding: 40,
+                    fontFamily: "sans-serif",
+                    color: "#999",
+                    borderRadius: 10
+                }
+                return(
+                    <div style={divStyle}>
+                        <LightningCounter />
+                    </div>
+                );
+            }
+        }
+        ReactDOM.render(
+            <LightningCounterDisplay />,
+            document.querySelector("#container")
+        );
+    </script>
+    
+</body>
+</html>

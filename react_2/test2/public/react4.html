@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    
+</head>
+<body>
+    <div id="container"></div>  
+    <script type="text/babel">
+        class Square extends React.Component {
+            render(){
+                const squareStyle = {
+                    height: 150,
+                    backgroundColor: this.props.color
+                };
+                return(
+                    <div style={squareStyle}>
+                    </div>
+                );
+            }
+        }
+        class Label extends React.Component {
+            render(){
+                const labelStyle = {
+                    footFamily: "sans-serif",
+                    fontWeight: "bold",
+                    padding: 13,
+                    margin: 0,
+                    textAlign: "center"
+                };
+                return(
+                    <p style={labelStyle}>{this.props.color}</p>
+                );
+            }
+        }
+        class Card extends React.Component {
+            render(){
+                const cardStyle = {
+                    height: 200,
+                    width: 150,
+                    padding: 0,
+                    backgroundColor: "#FFF",
+                    boxShadow: "0px 0px 5px #666"
+                }
+                return(
+                    <div style={cardStyle}>
+                        <Square color={this.props.color}/>
+                        <Label color={this.props.color}/>
+                    </div>
+                );
+            }
+        }
+        ReactDOM.render(
+            <div>
+                <Card color = "red"/>
+                <Card color = "blue"/>
+            </div>,
+            document.querySelector("#container")
+        );
+    </script>
+</body>
+</html>

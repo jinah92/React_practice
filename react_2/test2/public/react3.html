@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    
+</head>
+<body>
+    <div id="container"></div>  
+    <script type="text/babel">
+        class Latter extends React.Component {
+            render(){
+                // Javascript 구역
+                const letterStyle = {
+                    padding: 10,
+                    margin: 10,
+                    backgroundColor: this.props.a,
+                    color: "#333",
+                    display: "inline-block",
+                    fontFamily: "monospace",
+                    fontSize: 32,
+                    textAlign: "center"
+                };
+
+                return(
+                    //JSX 구역
+                    <div style={letterStyle}>
+                        {this.props.children}
+                    </div>
+                );
+            }
+        }
+        
+        ReactDOM.render(
+            <div>
+                <Latter a="red">A</Latter>
+                <Latter a="yellow">E</Latter>
+                <Latter a="blue">I</Latter>
+                <Latter a="green">O</Latter>
+                <Latter a="gray">U</Latter>
+            </div>,
+            document.querySelector("#container")
+        );
+    </script>
+</body>
+</html>

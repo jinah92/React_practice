@@ -1,0 +1,36 @@
+h2 {
+    text-align: center;
+    background-color: darkred;
+    color: aliceblue;
+    font-size: 70px;
+    margin-bottom: 15px;
+    border-radius: 15px;
+}
+form {
+    text-align: center;
+    padding: 30px;
+}
+img {
+    border:3px solid white;
+    height: 700px;
+    width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.btn {
+    width: 150px;
+    height: 50px;
+    font-size: 15px;
+    float: right;
+    margin: 5px;
+}
+#name, #pw {
+    width: 500px;
+    height: 30px;
+    font-size: 15px;
+    color: lightgray;
+}
+#content_message {
+    font-size: 30px;
+    text-align: right;
+}
