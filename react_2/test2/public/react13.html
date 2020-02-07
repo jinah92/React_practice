@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <div id="container"></div>
+    <script type="text/babel">
+        class Colorizer extends React.Component {
+            state={
+                bgColor: "yellow"
+            }
+            setNewColor=(e)=>{
+                this.setState({
+                    bgColor: this.input_color.value
+                });
+                this.input_color.focus();
+                this.input_color.value="";
+                e.preventDefault();
+            }
+            
+            render(){
+                const colorStyle = {
+                    width: 200,
+                    height: 300,
+                    backgroundColor: this.state.bgColor
+                }
+                return(
+                    <div>
+                        <div style={colorStyle}>color</div>
+                        <form onSubmit={this.setNewColor}>
+                            <input ref={ref=>this.input_color=ref}/>     {/* ref = 리액트에서의 컴포넌트의 ID  (cja) */}
+                            <button type="submit">go</button>
+                        </form>
+                    </div>
+                );
+            }
+        }
+        ReactDOM.render(
+            <Colorizer />,
+            document.querySelector("#container")
+        );
+    </script>
+</body>
+</html>

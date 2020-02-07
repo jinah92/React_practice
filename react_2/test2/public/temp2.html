@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <div id="container"></div>
+    <script type="text/babel">
+        class MyBall extends React.Component {
+            aaa;
+            state={
+                ball_top: Math.random()*500,
+                ball_left: Math.random()*500,
+                ball_bgColor: "pink"
+            }
+            changeBallPosition=()=>{
+                this.setState({
+                    ball_top: Math.random()*500,
+                    ball_left: Math.random()*500
+                });
+            }
+            catchMe=()=>{
+                this.setState({
+                    ball_bgColor: "red"
+                });
+                clearInterval(this.aaa);
+            }
+            componentDidMount(){
+                this.aaa = setInterval(this.changeBallPosition, 1000);
+            }  
+            render(){
+                const h3Style={
+                    backgroundColor: this.state.ball_bgColor,
+                    width: 100,
+                    height: 100,
+                    borderRadius: 50,
+                    textAlign: "center",
+                    position: "fixed",
+                    top: this.state.ball_top,
+                    left: this.state.ball_left
+                }
+                return(<h3 onClick={this.catchMe} style={h3Style}>나를 잡아봐 ^-^</h3>);
+            }
+        }
+        class MyGamePannel extends React.Component {
+            state={
+                balls: [],
+                score: 0
+            }
+            startGame=()=>{
+                let ball = (propkey)=><div key={propkey}><MyBall /></div>;
+                // alert(ballNumber);
+                for(let i=0; i<this.ballNumber.value; i++){
+                    this.state.balls.push(ball(i));
+                }
+                return this.state.balls;
+            }
+            render(){
+                const divStyle={
+                    backgroundColor: "yellowgreen",
+                    width: 600,
+                    height: 600
+                };   
+                return (
+                    <div>
+                        <form>
+                            <input ref={ref=>this.ballNumber=ref} placeholder="Enter the number" />
+                            <button onClick={this.startGame}>Start Now</button>
+                        </form>
+                        <div style={divStyle}>{this.startGame()}</div>
+                    </div>
+                );
+            }
+        }
+        ReactDOM.render(
+            <MyGamePannel />, document.querySelector('#container')
+        );
+    </script>
+</body>
+</html>
