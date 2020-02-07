@@ -17,7 +17,8 @@
             state={
                 ball_top: Math.random()*500,
                 ball_left: Math.random()*500,
-                ball_bgColor: "pink"
+                ball_bgColor: "pink",
+                catched: "False"
             }
             changeBallPosition=()=>{
                 this.setState({
@@ -27,7 +28,8 @@
             }
             catchMe=()=>{
                 this.setState({
-                    ball_bgColor: "red"
+                    ball_bgColor: "red",
+                    catched: "True"
                 });
                 clearInterval(this.aaa);
             }
@@ -53,13 +55,26 @@
                 balls: [],
                 score: 0
             }
-            startGame=()=>{
-                let ball = (propkey)=><div key={propkey}><MyBall /></div>;
-                // alert(ballNumber);
+            startGame=(e)=>{
+                let arr = [];
                 for(let i=0; i<this.ballNumber.value; i++){
-                    this.state.balls.push(ball(i));
+                    let ball = <div key={i}><MyBall /></div>;
+                    arr.push(ball);
                 }
-                return this.state.balls;
+                this.setState({
+                    balls: arr
+                })
+                e.preventDefault();
+            }
+            componentDidMount(){
+                setInterval(this.score, 0);
+            }  
+            score=()=>{
+                for(let i=0; i<this.state.balls.length; i++){
+                    if(balls[i].state.catched){
+                        this.state.score += 1;
+                    }
+                } 
             }
             render(){
                 const divStyle={
@@ -71,15 +86,19 @@
                     <div>
                         <form>
                             <input ref={ref=>this.ballNumber=ref} placeholder="Enter the number" />
-                            <button onClick={this.startGame}>Start Now</button>
+                            <button onClick={this.startGame}>Start Now</button> score: {this.state.score}
                         </form>
-                        <div style={divStyle}>{this.startGame()}</div>
+                        <div style={divStyle}>{this.state.balls}</div>
                     </div>
                 );
             }
         }
+        
+            
         ReactDOM.render(
-            <MyGamePannel />, document.querySelector('#container')
+
+            <MyGamePannel />
+            , document.querySelector('#container')
         );
     </script>
 </body>
