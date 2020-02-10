@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <h1 id="here"></h1>
+    <div id="container"></div>
+    <script type="text/babel">
+        class ColorLabel extends React.Component {
+            render(){
+                return ReactDOM.createPortal(
+                    this.props.color,
+                    document.querySelector("#here")
+                );
+            }
+        }
+        class Colorizer extends React.Component {
+            state={
+                bgColor: "yellow",
+                color: ""
+            }
+            setColor=(e)=>{
+                if(e.key ==="Enter"){
+                    this.setState({
+                        bgColor: this.colorName.value
+                    });
+                    this.colorName.value="";
+                    this.colorName.focus();
+                }
+            }
+            render(){
+                const colorPanel ={
+                    width: 200,
+                    height: 300,
+                    backgroundColor: this.state.bgColor
+                }
+                return(
+                    <div>
+                        <div style={colorPanel}></div>
+                        <input ref={ref=>this.colorName=ref} onKeyPress={this.setColor}/>
+                        <button>go</button>
+                        <ColorLabel color={this.state.bgColor}/>
+                    </div>
+                );
+            }
+        }
+        ReactDOM.render(
+            <Colorizer />
+            , document.querySelector("#container")
+        );
+    </script>
+    
+</body>
+</html>
