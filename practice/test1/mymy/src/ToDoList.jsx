@@ -29,7 +29,7 @@ class ToDoList extends Component {
                     <input ref={ref=>this._Element=ref}/>
                     <button onClick={this.addItem}>추가</button>
                 </div>
-                    <ToDoItems entries={this.state.items} superDelete={this.deleteItem}/>
+                    <ToDoItems sentries={this.state.items} uperDelete={this.deleteItem}/>
             </div>
         );
     }
