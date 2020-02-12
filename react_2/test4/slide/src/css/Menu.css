@@ -1,13 +1,14 @@
 #flyoutMenu {
     width: 30vw;
     height: 100vh;
-    background-color: darkmagenta;
+    background-color: rgb(10, 22, 138);
     position: fixed;
     top: 0;
     left: 0;
     transition: transform 1s cubic-bezier(0, .52, 0, 1);
     overflow: scroll;
     z-index: 1000;
+    color: whitesmoke;
 }
 
 #flyoutMenu.hide {
@@ -20,7 +21,7 @@
 }
 
 #flyoutMenu h2 a {
-    color: #333;
+    color: white;
     margin-left: 15px;
     text-decoration: none;
 }
