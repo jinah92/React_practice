@@ -3,8 +3,15 @@ const express = require('express');
 const session = require('express-session');
 const server = express();
 const cors = require('cors');
+const sequelize=require('./models').sequelize;
 
-server.use(cors());
+sequelize.sync();
+
+const corseOptions = {
+    origin: true,
+    credentials: true
+};
+server.use(cors(corseOptions));
 server.use(express.json());
 server.use(express.urlencoded({extended:true}));
 server.use(session({

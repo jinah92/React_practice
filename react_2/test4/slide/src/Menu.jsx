@@ -3,6 +3,9 @@ import "./css/Menu.css";
 import $ from 'jquery';
 import {NavLink, HashRouter} from 'react-router-dom';
 import { } from "jquery.cookie";
+import axios from 'axios';
+axios.defaults.withCredentials = true;
+const headers = {withCredentials: true};
 
 class Menu extends Component {
     state={
@@ -11,8 +14,10 @@ class Menu extends Component {
         logoutStyle: "none"
     }
     logout=()=>{
-        $.get('http://localhost:8080/member/logout',(returnData)=>{
-            if(returnData.message){ //로그아웃 성공
+        axios.get('http://localhost:8080/member/logout',{
+            headers
+        }).then((returnData)=>{
+            if(returnData.data.message){ //로그아웃 성공
                 $.removeCookie("login_name");
                 this.setState({
                     login_email: "",
@@ -20,18 +25,20 @@ class Menu extends Component {
                     logoutStyle: "none"
                 });
             }
-        });
+        });  
     }
     login=()=>{
         const sendParm ={
+            headers,
             email: this.email.value,
             pw: this.pw.value
         }
-        $.post('http://localhost:8080/member/login', sendParm, (returnData)=>{
-            if(returnData.message){ //로그인 성공
-                $.cookie("login_name", returnData.message);
+        axios.post('http://localhost:8080/member/login', sendParm)
+        .then((returnData)=>{
+            if(returnData.data.message){ //로그인 성공
+                $.cookie("login_name", returnData.data.message);
                 this.setState({
-                    login_email: returnData.message,
+                    login_email: returnData.data.message,
                     loginStyle: "none",
                     logoutStyle: "inline-block"
                 });
@@ -41,7 +48,7 @@ class Menu extends Component {
             this.email.value="";
             this.pw.value="";
             this.email.focus();
-        });
+        }); 
     }
     render(){
         const loginStyle={

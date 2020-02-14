@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mysql = require('mysql');
+const User=require('../models').User;
 
 const con = mysql.createConnection({
     host: "localhost",
@@ -9,7 +10,25 @@ const con = mysql.createConnection({
     database: "nodejs",
     port: "3307"
 });
-router.post('/insert', (req, res)=>{
+router.post('/insert', async (req, res)=>{
+    const nick = req.body.name;
+    const email = req.body.email;
+    const password = req.body.pw;
+    const comments = req.body.comments;
+    try{
+        const result = await User.create({
+            email,
+            nick,
+            password
+        });
+        console.log(result);
+        res.json({message: nick});
+    } catch(err){
+        res.json({message: false});
+    }
+});
+
+/* router.post('/insert', (req, res)=>{
     const name = req.body.name;
     const email = req.body.email;
     const pw = req.body.pw;
@@ -22,7 +41,8 @@ router.post('/insert', (req, res)=>{
             res.json({message: name});
         }
     });
-});
+}); */
+
 router.get('/logout', (req, res)=>{
     req.session.destroy(()=>{
         res.json({message: true});
@@ -38,6 +58,7 @@ router.post('/login', (req, res)=>{
             res.json({message: false});
         } else {
             req.session.email=email;
+            console.log("/login  ", req.sessionID);
             res.json({message: result[0].name});
         }
     });
