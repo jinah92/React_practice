@@ -2,19 +2,6 @@
 
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('post', {
-    post_no: {
-      type: DataTypes.INTEGER(11),
-      allowNull: false,
-      primaryKey: true
-    },
-    email: {
-      type: DataTypes.STRING(45),
-      allowNull: false,
-      references: {
-        model: 'user',
-        key: 'email'
-      }
-    },
     content: {
       type: DataTypes.STRING(140),
       allowNull: true
@@ -25,7 +12,7 @@ module.exports = function(sequelize, DataTypes) {
     }
   }, {
     tableName: 'post',
-    timestamps: false,
-
+    timestamps: true,
+    paranoid: true
   });
 };

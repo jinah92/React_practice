@@ -9,7 +9,7 @@ const headers = {withCredentials: true};
 
 class Menu extends Component {
     state={
-        login_email: "",
+        login_nick: "",
         loginStyle: "inline-block",
         logoutStyle: "none"
     }
@@ -18,9 +18,10 @@ class Menu extends Component {
             headers
         }).then((returnData)=>{
             if(returnData.data.message){ //로그아웃 성공
-                $.removeCookie("login_name");
+                $.removeCookie("login_nick");
+                $.removeCookie("login_id");
                 this.setState({
-                    login_email: "",
+                    login_nick: "",
                     loginStyle: "inline-block",
                     logoutStyle: "none"
                 });
@@ -30,24 +31,25 @@ class Menu extends Component {
     login=()=>{
         const sendParm ={
             headers,
-            email: this.email.value,
-            pw: this.pw.value
+            nick: this.nick.value,
+            password: this.password.value
         }
         axios.post('http://localhost:8080/member/login', sendParm)
         .then((returnData)=>{
-            if(returnData.data.message){ //로그인 성공
-                $.cookie("login_name", returnData.data.message);
+            if(returnData.data.nick){ //로그인 성공
+                $.cookie("login_nick", returnData.data.nick);
+                $.cookie("login_id", returnData.data.id);
                 this.setState({
-                    login_email: returnData.data.message,
+                    login_nick: returnData.data.nick,
                     loginStyle: "none",
                     logoutStyle: "inline-block"
                 });
-            } else {
+            } else{
                 alert("login failed");
             }
-            this.email.value="";
-            this.pw.value="";
-            this.email.focus();
+            this.nick.value="";
+            this.password.value="";
+            this.nick.focus();
         }); 
     }
     render(){
@@ -58,9 +60,9 @@ class Menu extends Component {
             display: this.state.logoutStyle,
             paddingLeft: 50
         }
-        let login_name;
-        if($.cookie("login_name")){
-            login_name=$.cookie("login_name");
+        let login_nick;
+        if($.cookie("login_nick")){
+            login_nick=$.cookie("login_nick");
             loginStyle.display="none";
             logoutStyle.display="inline-block";
         }
@@ -73,19 +75,19 @@ class Menu extends Component {
             <div id="flyoutMenu" onDrag={this.props.handleMouseDown} className={visibility}>
                 <HashRouter>    
                 <div style={loginStyle}>
-                    e-mail<input ref={ref=>this.email=ref}/><br/>
-                    pw<input type="password" ref={ref=>this.pw=ref}/><br/>
+                    e-mail<input ref={ref=>this.nick=ref}/><br/>
+                    password<input type="password" ref={ref=>this.password=ref}/><br/>
                     <button onClick={this.login}>로그인</button>
                     <NavLink to="/contact">   
                         <button onClick={this.props.handleMouseDown}>회원가입</button>
                     </NavLink>
                 </div>
                     <div style={logoutStyle}>
-                        {login_name}님, 접속
+                        {login_nick}님, 접속
                         <button onClick={this.logout}>로그아웃</button>
                     </div>
                 <h2><NavLink exact to="/" onClick={this.props.handleMouseDown}>Home</NavLink></h2>
-                <h2><NavLink to ="/stuff" onClick={this.props.handleMouseDown}>Stuff</NavLink></h2>
+                <h2><NavLink to ="/post" onClick={this.props.handleMouseDown}>Post</NavLink></h2>
                 <h2><NavLink to ="/contact" onClick={this.props.handleMouseDown}>Contact</NavLink></h2>
                 </HashRouter>
             </div>

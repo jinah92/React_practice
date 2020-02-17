@@ -24,6 +24,7 @@ server.use(session({
     }
 }));
 server.use('/member', memberRouter);
+server.use('/post', require('./routes/postRouter'));
 server.get('/', (req, res)=>{
     res.json({ip: "111.222.333.444"});
 });

@@ -5,7 +5,7 @@ module.exports = function(sequelize, DataTypes) {
     email: {
       type: DataTypes.STRING(50),
       allowNull: false,
-      primaryKey: true
+      unique: true
     },
     nick: {
       type: DataTypes.STRING(45),
@@ -18,7 +18,7 @@ module.exports = function(sequelize, DataTypes) {
     }
   }, {
     tableName: 'user',
-    timestamps: false,
-
+    timestamps: true, //creadteAt(생성시간), updatedAt(수정시간) 자동 저장
+    paranoid: true  //deletedAt(삭제시간) 자동 저장
   });
 };

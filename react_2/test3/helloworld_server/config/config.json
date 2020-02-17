@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "mysql",
-    "database": "SNS",
+    "database": "SNS2",
     "host": "127.0.0.1",
     "port": "3307",
     "dialect": "mysql",

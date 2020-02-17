@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const mysql = require('mysql');
-const User=require('../models').User;
+const User = require('../models').User;
+const {getAllPosts} = require('./common');
 
 const con = mysql.createConnection({
     host: "localhost",
@@ -48,11 +49,26 @@ router.get('/logout', (req, res)=>{
         res.json({message: true});
     });
 });
-router.post('/login', (req, res)=>{
+router.post('/login', async (req, res)=>{
+    console.log(req.body);
+    var email = req.body.nick;
+    var password = req.body.password;
+
+    try{
+        const result = await User.findOne({where: {email,password}});
+        res.json({nick:result.nick, id:result.id});
+    }catch(err){
+        console.log(err);
+        res.json({message:false});
+    }
+
+});
+/* router.post('/login', (req, res)=>{
     console.log(req.body);
     var email = req.body.email;
     var pw = req.body.pw;
     var sql = 'SELECT * FROM members WHERE email = ? AND pw = ?';   //정적 쿼리문 사용 (SQL Injection 방어)
+
     con.query(sql, [email, pw], function (err, result) {
         if (err) {
             res.json({message: false});
@@ -62,6 +78,6 @@ router.post('/login', (req, res)=>{
             res.json({message: result[0].name});
         }
     });
-});
+}); */
 
 module.exports=router;

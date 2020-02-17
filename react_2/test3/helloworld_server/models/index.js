@@ -15,18 +15,18 @@ db.Hashtag = require('./hashtag')(sequelize, Sequelize);
 
 db.User.hasMany(db.Post);
 db.Post.belongsTo(db.User);
-db.Post.belongsToMany(db.Hashtag, {through: 'PostHashtag'});
-db.Hashtag.belongsToMany(db.Post, {through: 'PostHashtag'});
+db.Post.belongsToMany(db.Hashtag, {through: 'PostHashtag'});  //through ==> 테이블명
+db.Hashtag.belongsToMany(db.Post, {through: 'PostHashtag'});    
 
 db.User.belongsToMany(db.User, {
   foreignKey: 'followingId',
-  as: 'Followers',
-  through: 'Follow',
+  as: 'Followers',    //alias
+  through: 'Follow',  //테이블명
 });
 db.User.belongsToMany(db.User, {
   foreignKey: 'followerId',
   as: 'Followings',
-  through: 'Follow',
+  through: 'Follow',  //테이블명
 });
 
 module.exports = db;

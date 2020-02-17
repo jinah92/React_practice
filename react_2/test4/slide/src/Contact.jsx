@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 import axios from "axios";
+axios.defaults.withCredentials = true;
+const headers = {withCredentials: true};
 
 class Contact extends Component {
     state = {
@@ -7,6 +9,7 @@ class Contact extends Component {
     }
     memberInsert=()=>{
         const sendParam={
+            headers,
             name: this._nameE.value,
             email: this._emailE.value,
             pw: this._pwE.value,
